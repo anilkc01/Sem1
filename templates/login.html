@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="login-box">
+            <h2 style="color: blue !important">Sign In</h2>
+            <form>
+                <div class="form-group">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
+                    <path d="M12 14c-4.41 0-8 2.69-8 6v2h16v-2c0-3.31-3.59-6-8-6z"></path>
+                  </svg>
+                  <input type="text" placeholder="Email or Phone" required>
+                </div>
+          
+                <div class="form-group">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="blue">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                  </svg>
+                  
+                  <input type="password" placeholder="Password" required>
+                </div>
+
+                <a href="#" class="forget-pass">Forgot Password?</a>
+          
+               
+                <button type="submit" class="login-button">Log In</button>
+
+                <div class="signup-link">
+                  <span>Don't have an account? </span>
+                  <a href="#" class="sign-up">Sign Up</a>
+              </div>
+
+                
+            </form>
+        </div>
+    </div>
+{% endblock %}
