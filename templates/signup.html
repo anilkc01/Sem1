@@ -8,27 +8,32 @@
     <div class="container">
         <div class="login-box">
             <h2 style="color: blue !important">Register</h2>
-            <form>
-                <div class="form-group">
-                    <input type="text" placeholder="Full Name" required>
+            <form action="/register" method="post">
+                <div class= "form-group">
+                    <input type = "text" name = "name" placeholder = "Full Name" required>
                 </div>
-                <div class="form-group">
-                    <input type="text" placeholder="User Name" required>
+                <div class = "form-group">
+                    <input type = "text" name = "uName" placeholder = "User Name" required>
                 </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Email" required>
+                <div class = "form-group">
+                    <input type = "text" name = "email"  placeholder = "Email" required>
                 </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Phone Number" required>
+                <div class = "form-group">
+                    <input type = "text" name = "number" placeholder  = "Phone Number" required>
                 </div>
           
-                <div class="form-group">
-                  <input type="password" placeholder="Password" required>
+                <div class = "form-group">
+                  <input type = "password" name = "pass" placeholder = "Password" required>
                 </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Re-Password" required>
+                <div class = "form-group">
+                    <input type = "password" name = "repass" placeholder = "Re-Password" required>
                 </div>
   
+                {% if show_alert %}
+                    <script type="text/javascript">
+                        alert("{{ alert_message }}");
+                    </script>
+                {% endif %}
                
                 <button type="submit" class="login-button">Register</button>
 
