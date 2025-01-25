@@ -8,7 +8,7 @@
     <div class="container">
         <div class="login-box">
             <h2 style="color: blue !important">Sign In</h2>
-            <form action="/" method="post">
+            <form action="/login" method="post">
                 <div class="form-group">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
@@ -25,7 +25,14 @@
                   <input type="password" name = "pass" placeholder="Password" required>
                 </div>
 
-                <a href="#" class="forget-pass">Forgot Password?</a>
+                <div class="container" style="justify-content: space-between;">
+                  <div class="left-section">
+                    <input type="checkbox" class="checkbox-round" name = "remember" />
+                    <a style="color: black;">Remember me </a>
+                  </div>
+                  <a href="#" class="forget-pass">Forgot Password?</a>
+                </div>
+                
           
                
                 <button type="submit" class="login-button">Log In</button>

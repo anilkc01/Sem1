@@ -30,6 +30,7 @@ body {
   font-size: 20px;
   font-weight: bold;
   margin-right: 40px;
+  text-decoration: none;
   color: black;
 }
 
@@ -78,20 +79,37 @@ body {
   color: black;
 }
 
-form-group svg {
-  position: absolute;
-  left: 10px; 
-  top: 50%;
-  transform: translateY(-50%); 
-}
-
 .form-group input::placeholder {
   color: #aaa;
 }
 
+.left-section {
+  display: block;
+  align-items: center;
+  justify-self: start;
+  gap: 5px; 
+}
+
+.checkbox-round {
+  width: 1.3em;
+  height: 1.3em;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkbox-round:checked {
+  background-color: #0056b3;
+}
 
 .forget-pass {
   display: block;
+  justify-self: end;
   text-align: right;
   font-weight: bold;
   font-size: 14px;
