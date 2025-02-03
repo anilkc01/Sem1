@@ -1,12 +1,56 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    
+    Live Stocks
 {% endblock %}
 
 {% block main %}
-   
-    <span class="display">This is Live page !</span>
-   
+<div style="
+    display: flex; 
+    flex-direction: column; 
+    align-items: start; 
+    width: 60%; 
+    background-color: transparent;  
+    min-height: 100vh; /* Prevent shrinking */
+    position: relative; /* Ensures it stays at the top */
+    top: 0;
+">
+
     
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Enter symbol to search..." onkeyup="searchTable()" />
+    </div>
+
+   
+    <div class="table-container">
+        <table id="stockTable">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>LTP</th>
+                    <th>% Change</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Previous Close</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr class="{{ 'green' if stock.p_change > 0 else 'red' if stock.p_change < 0 else 'white' }}">
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.ltp }}</td>
+                    <td>{{ stock.p_change }}</td>
+                    <td>{{ stock.high }}</td>
+                    <td>{{ stock.low }}</td>
+                    <td>{{ stock.p_close }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
 {% endblock %}

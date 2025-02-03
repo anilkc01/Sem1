@@ -19,8 +19,17 @@ db = SQL("sqlite:///data.db")
 @login_required
 def home():
     if request.method == "GET":
-        row = db.execute("SELECT * FROM users WHERE id = ?",session["user_id"])
-        return render_template("index.html",inHome = True,info = row[0]["full_name"])
+        amount = db.execute("SELECT amount FROM users WHERE id = ?",session["user_id"])[0]["amount"]
+        holds = db.execute("""
+                                SELECT l.*, h.quantity
+                                FROM live l
+                                LEFT JOIN holdings h ON l.symbol = h.symbol
+                                WHERE h.uid = ?
+                            """, session["user_id"])
+
+        ltp_balance = sum(stock['quantity'] * stock['ltp'] for stock in holds)
+        pcp = sum(stock['quantity'] * stock['p_close'] for stock in holds)
+        return render_template("index.html",inHome= True, amt = amount,pcp_balance=pcp,ltp_balance=ltp_balance,holdings = holds)
 
 @app.route("/login", methods=["GET","POST"])
 def login():
@@ -90,7 +99,12 @@ def register():
 @app.route("/live", methods=["GET","POST"])
 def live():
     if request.method == "GET":
-        return render_template("live.html",loggedin = False, live = True)
+        search = request.args.get("search", "")
+        if search:
+            rows = db.execute("SELECT * FROM live WHERE symbol LIKE :search", search=f"%{search}%")
+        else:
+            rows = db.execute("SELECT * FROM live")
+        return render_template("live.html",loggedin = False, live = True,stocks=rows)
     
 
 

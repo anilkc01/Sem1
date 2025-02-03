@@ -159,3 +159,58 @@ body {
 }
 
 
+.table-container {
+  max-height: 90%; /* Adjust height as needed */
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+table {
+  width: 100%;
+  
+  border-collapse: collapse;
+
+}
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+th {
+  background-color: #aaa;
+  position: sticky;
+  font-weight: bold;
+  top: 0;
+  z-index: 2;
+}
+
+.green {
+  background-color: #60a152; /* Light Green */
+}
+
+.red {
+  background-color: #c24036; /* Light Red */
+}
+
+.white {
+  background-color: #ffffff; /* White */
+}
+
+/* Container for the search bar */
+.search-container {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px; /* Adds space between search bar and table */
+}
+
+/* Style for the search input field */
+.search-container input {
+  padding: 8px;
+  font-size: 16px;
+  width: 250px;
+  border: none;
+  outline: none;
+  background: transparent;
+  border-bottom: 2px solid grey; /* Underline effect */
+}

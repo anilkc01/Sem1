@@ -1,13 +1,54 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    
+    Your Page Title Here
 {% endblock %}
 
 {% block main %}
-
-    <span class="display">This is swornim !</span>
-    <span class="display">This is Anil !</span>
-    <span class="display">{{ info }}</span>
     
+    <div style="position: fixed; top: 100px; width: 95%; margin: 0 auto; z-index: 1000;">
+        
+        <div style="width: 100%; background-color: transparent; height: fit-content; text-align: right;">
+            <span >Collateral : {{ amt }}</span>
+            <br>
+            <span> PCP Balance : {{ pcp_balance }}</span>
+            <br>
+            <span> LTP Balance : {{ ltp_balance }}</span>
+        </div>
+
+        <div style="width: 100%; background-color:transparent; min-height: 60%; margin-top: 10px; text-align: left;">
+            Your Holdings
+        </div>
+
+        <div style="width: fit-content; min-width: 50%; background-color: green; min-height: 60%; margin-top: 20px;">
+            <div class="table-container">
+                <table id="stockTable">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Quantity</th>
+                            <th>LTP</th>
+                            <th>% Change</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>Previous Close</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock in holdings %}
+                        <tr class="{{ 'green' if stock.p_change > 0 else 'red' if stock.p_change < 0 else 'white' }}">
+                            <td>{{ stock.symbol }}</td>
+                            <td>{{ stock.quantity }}</td>
+                            <td>{{ stock.ltp }}</td>
+                            <td>{{ stock.p_change }}</td>
+                            <td>{{ stock.high }}</td>
+                            <td>{{ stock.low }}</td>
+                            <td>{{ stock.p_close }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
