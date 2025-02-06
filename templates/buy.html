@@ -1,0 +1,35 @@
+<div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <h2>Buy Stocks</h2>
+    <form id="buyForm">
+        <label for="symbol">Symbol:</label>
+        <input type="text" id="symbol" name="symbol" list="stock-options" required autocomplete="off">
+        <datalist id="stock-options">
+            {% for stock in stocklist %}
+                <option value="{{ stock.symbol }}" data-ltp="{{ stock.ltp }}">{{ stock.symbol }} (LTP: {{ stock.ltp }})</option>
+            {% endfor %}
+        </datalist>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
+
+        <button id="order-btn" onclick="showReceipt()" type="button">Order</button>
+    </form>
+
+    <!-- To display summary before buying  -->
+    <div id="receipt" style="display: none; text-align: right;">
+        <h3>Order Summary</h3>
+        <p>Symbol: <span id="r_symbol"></span></p>
+        <p>Price: <span id="r_price"></span></p>
+        <p>Quantity: <span id="r_quantity"></span></p>
+        <p>Total: <span id="r_total"></span></p>
+
+        <form action="/buy" method="POST">
+            <input type="hidden" name="symbol" id="h_symbol">
+            <input type="hidden" name="ltp" id="h_price">
+            <input type="hidden" name="quantity" id="h_quantity">
+            <input type="hidden" name="total" id="h_total">
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
+</div>

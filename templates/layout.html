@@ -13,15 +13,20 @@
         <a href="/">
             <img src="{{ url_for('static', filename='images/SSLogo.png') }}" alt="Logo" class="logo">
         </a>
+
+        {% if loggedin == True %}
+          <a>
+            <span class="bsbox" onclick="openPopup('buy')">Buy</span>
+            <span class="bsbox">|</span>
+            <span class="bsbox" onclick="openPopup('sell')">Sell</span>
+        </a>
+        
+        
+        
+        {% endif %}
+
         
         <div style="align-items: center; align-content: center; justify-content: center;">
-          
-          {% if not live %}
-            <a href="/live" style="text-decoration:none;">
-              <span class="live-text"  >● LIVE NEPSE</span>
-            </a>
-          
-          {% endif %}
           
           {% if loggedin == False %}
             <a href="/" style="text-decoration:none;">
@@ -29,16 +34,36 @@
             </a>
           {% endif %}
 
-          {% if inHome == True %}
-            <a href="/logout" >
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 16.5V19C15 20.1046 14.1046 21 13 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3H13C14.1046 3 15 3.89543 15 5V8.0625M11 12H21M21 12L18.5 9.5M21 12L18.5 14.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+          {% if loggedin == True %}
+          
+            {% if not live %}
+            <a href="/live" style="text-decoration:none;">
+              <span class="live-text"  >● LIVE NEPSE</span>
             </a>
+            {% endif %}
+
+              <a href="/logout" >
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 16.5V19C15 20.1046 14.1046 21 13 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3H13C14.1046 3 15 3.89543 15 5V8.0625M11 12H21M21 12L18.5 9.5M21 12L18.5 14.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+              </a>
           {% endif %}
         </div>
        
     </div>
+
+    {% if get_flashed_messages() %}
+        <header>
+            {% for message in get_flashed_messages() %}
+                {% set flash_data = message %}
+                <div class="alert alert-primary mb-0 text-center flash-message" style="color: {{ flash_data['color'] }};" role="alert">
+                    {{ flash_data['message'] }}
+                </div>
+            {% endfor %}
+        </header>
+    {% endif %}
+
+
 
   <main class="container py-5 text-center">
     {% block main %}{% endblock %}

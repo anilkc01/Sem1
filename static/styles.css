@@ -9,6 +9,7 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  
 }
 
 .top-bar {
@@ -32,6 +33,14 @@ body {
   margin-right: 40px;
   text-decoration: none;
   color: black;
+}
+.flash-message {
+  background-color:transparent;  
+  color: white; 
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .container {
@@ -213,4 +222,51 @@ th {
   outline: none;
   background: transparent;
   border-bottom: 2px solid grey; /* Underline effect */
+}
+
+.bsbox {
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  background: none;
+  color: #AAA;
+  cursor: pointer;
+  display: inline-block;
+  transition: color 0.2s, border-bottom 0.2s;
+}
+
+.bsbox:hover {
+  color: #007bff;
+}
+
+.bsbox.focused {
+  border-bottom: 2px solid #007bff;
+  color: #0056b3;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  display: none; /* Hidden by default */
+  z-index: 1000;
+  width: fit-content;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
 }
