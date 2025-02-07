@@ -80,3 +80,30 @@ function showReceipt() {
 
     document.getElementById("receipt").style.display = "block";
 }
+
+
+// Function to toggle dropdown visibility
+function toggleDropdown(event) {
+    event.stopPropagation(); // Prevent click event from propagating to the window
+  
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+    
+    // Toggle the visibility of the dropdown
+    dropdown.classList.toggle('show');
+  }
+  
+  // Close the dropdown if clicked outside
+  window.onclick = function(event) {
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+  
+    // Check if the click happened outside the dropdown or its button
+    if (!dropdown.contains(event.target)) {
+      dropdown.classList.remove('show'); // Close the dropdown
+    }
+  };
+  
+  
+ 
+  

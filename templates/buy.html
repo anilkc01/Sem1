@@ -2,18 +2,18 @@
     <span class="close-btn" onclick="closePopup()">&times;</span>
     <h2>Buy Stocks</h2>
     <form id="buyForm">
-        <label for="symbol">Symbol:</label>
-        <input type="text" id="symbol" name="symbol" list="stock-options" required autocomplete="off">
+        <label for="symbol" style="font-size: 20px;">Symbol:</label>
+        <input type="text"  required id="symbol" name="symbol" style="font-size: 20px; width: 120px;" list="stock-options" required autocomplete="off">
         <datalist id="stock-options">
             {% for stock in stocklist %}
                 <option value="{{ stock.symbol }}" data-ltp="{{ stock.ltp }}">{{ stock.symbol }} (LTP: {{ stock.ltp }})</option>
             {% endfor %}
         </datalist>
 
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required>
+        <label for="quantity" style="font-size: 20px;">Quantity:</label>
+        <input type="number" required id="quantity" name="quantity" required style="font-size: 20px; width: 120px;">
 
-        <button id="order-btn" onclick="showReceipt()" type="button">Order</button>
+        <button id="order-btn" class = "o_btn" onclick="showReceipt()" type="button">Order</button>
     </form>
 
     <!-- To display summary before buying  -->
@@ -29,7 +29,7 @@
             <input type="hidden" name="ltp" id="h_price">
             <input type="hidden" name="quantity" id="h_quantity">
             <input type="hidden" name="total" id="h_total">
-            <button type="submit">Confirm</button>
+            <button type="submit" class = "o_btn">Confirm</button>
         </form>
     </div>
 </div>
