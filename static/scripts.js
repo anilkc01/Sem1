@@ -35,11 +35,13 @@ function openPopup(action) {
         .then(html => {
             document.getElementById("popup-container").innerHTML = html;
             document.getElementById("popup-container").style.display = "block";
+            document.body.classList.add('popup-open');
         });
 }
 
 function closePopup() {
     document.getElementById("popup-container").style.display = "none";
+    document.body.classList.remove('popup-open');
 }
 
 window.openPopup = openPopup;

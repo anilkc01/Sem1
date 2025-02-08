@@ -1,0 +1,33 @@
+
+
+<div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <h2>History</h2>
+    <div class="table-container" style="max-height: 400px;">
+        <table id="historyTable">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.quantity }}</td>
+                    <td>{{ stock.price }}</td>
+                    <td>{{ stock.quantity * stock.price }}</td>
+                    <td>{{ stock.action }}</td>
+                    <td>{{ stock.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</div>

@@ -167,6 +167,34 @@ def sell():
         
         return redirect("/")
 
+@app.route("/history", methods=["GET"])
+def history():
+    trans = db.execute("SELECT symbol,price,quantity,action,date FROM transactions WHERE uid = ?",session["user_id"])
+    return render_template("history.html",stocks=trans)
+
+@app.route("/cpw", methods=["GET","POST"])
+def cpw():
+    if request.method == "GET":
+        return render_template("cpw.html")
+    else:
+        details = db.execute("SELECT id,password_hash FROM users WHERE id = ?",session["user_id"])
+        old_pw = request.form.get("old_pw")
+        new_pw = request.form.get("npw")
+        re_pw = request.form.get("re-npw")
+        if new_pw != re_pw:
+            flash({"message": "New Passwords doesnot match", "color": "red"})
+            
+        elif len(details) != 1 or not check_password_hash(details[0]["password_hash"], old_pw):
+            flash({"message": "Wrong old Password", "color": "red"})
+            
+        else:
+            db.execute("UPDATE users SET password_hash = ? WHERE id = ? ",generate_password_hash(new_pw),session["user_id"])
+            flash({"message": "Password Changed!", "color": "green"})
+            return redirect("/")
+        
+    return redirect("/")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
