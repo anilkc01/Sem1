@@ -87,7 +87,7 @@
         <header>
             {% for message in get_flashed_messages() %}
                 {% set flash_data = message %}
-                <div class="alert alert-primary mb-0 text-center flash-message" style="color: {{ flash_data['color'] }};" role="alert">
+                <div class="alert alert-primary mb-0 text-center flash-message" style="color: {{flash_data['color']}}" role="alert">
                     {{ flash_data['message'] }}
                 </div>
             {% endfor %}

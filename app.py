@@ -34,14 +34,13 @@ def home():
 @app.route("/login", methods=["GET","POST"])
 def login():
 
-     # Forget any user_id
     session.clear()
 
     if request.method == "POST":
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("uName"))
 
         if len(rows) != 1 or not check_password_hash(rows[0]["password_hash"], request.form.get("pass")):
-            return render_template("login.html",show_alert=True, alert_message="Password Not Match !")
+            flash({"message": "Username or password not match !", "color": "red"})
         else:
             session["user_id"] = rows[0]["id"]
             if request.form.get("remember"):
@@ -49,9 +48,11 @@ def login():
                 app.permanent_session_lifetime = timedelta(days=30)  
             else:
                 session.permanent = False 
-
+            msg = "Welcome Dear, " + rows[0]["full_name"]
+            flash({"message": msg, "color": "green"})
+            return redirect("/")
             
-            return redirect("/")     
+        return redirect("login.html")     
     else:
         return render_template("login.html")
 
@@ -59,7 +60,7 @@ def login():
 def logout():
     session.clear()
 
-    # Redirect user to login form
+    flash({"message": "Logged out successfully!", "color": "green"})
     return redirect("/")
 
 
@@ -69,34 +70,36 @@ def register():
         row = db.execute("SELECT * FROM users WHERE username = ?",request.form.get("uName"))
 
         if not request.form.get("name"):
-            return  render_template("signup.html",show_alert=True, alert_message="Name is blank !")
+            flash({"message": "Name field is blank !", "color": "red"})
         elif not request.form.get("uName"):
-            return  render_template("signup.html",show_alert=True, alert_message="User name is blank !")
+            flash({"message": "Username is blank!", "color": "red"})
         elif not request.form.get("email"):
-            return  render_template("signup.html",show_alert=True, alert_message="email is blank !")
+            flash({"message": "Email is blank!", "color": "red"})
         elif not request.form.get("number"):
-            return  render_template("signup.html",show_alert=True, alert_message="Number is blank !")
+            flash({"message": "Number is blank!", "color": "red"})
         elif request.form.get("pass") != request.form.get("repass"):
-            return  render_template("signup.html",show_alert=True, alert_message="Passwords doesnot match !")
+            flash({"message": "Passwords doesnot match ", "color": "red"})
         elif len(row) == 1:
-            return  render_template("signup.html",show_alert=True, alert_message="User Already exist !")
+            flash({"message": "Username Already exist", "color": "red"})
         else:
-           db.execute("""
+            db.execute("""
                 INSERT INTO users (full_name, username, email, phone, password_hash)
                 VALUES (?, ?, ?, ?, ?)
-            """, 
-            request.form.get("name"),
-            request.form.get("uName"),
-            request.form.get("email"),
-            request.form.get("number"),
-            generate_password_hash(request.form.get("pass"))
-        )
-
-        return  render_template("login.html",show_alert=True, alert_message="Registered successful !")
+                """, 
+                request.form.get("name"),
+                request.form.get("uName"),
+                request.form.get("email"),
+                request.form.get("number"),
+                generate_password_hash(request.form.get("pass"))
+             )
+            flash({"message": "Registered successfully!", "color": "green"})
+            return redirect("login.html")
+        return  render_template("signup.html")
     else:
         return render_template("signup.html")
     
-@app.route("/live", methods=["GET","POST"])
+@app.route("/live", methods=["GET"])
+@login_required
 def live():
     if request.method == "GET":
         search = request.args.get("search", "")
@@ -108,6 +111,7 @@ def live():
     
 
 @app.route("/buy", methods=["GET", "POST"])
+@login_required
 def buy():
     if request.method == "GET":
         stocklist = db.execute("SELECT symbol, ltp FROM live")
@@ -139,6 +143,7 @@ def buy():
 
 
 @app.route("/sell", methods=["GET", "POST"])
+@login_required
 def sell():
     if request.method == "GET":
         stocklist = db.execute("SELECT symbol, ltp FROM live WHERE symbol IN (SELECT symbol FROM holdings WHERE uid = ?)", 
@@ -168,11 +173,13 @@ def sell():
         return redirect("/")
 
 @app.route("/history", methods=["GET"])
+@login_required
 def history():
     trans = db.execute("SELECT symbol,price,quantity,action,date FROM transactions WHERE uid = ?",session["user_id"])
     return render_template("history.html",stocks=trans)
 
 @app.route("/cpw", methods=["GET","POST"])
+@login_required
 def cpw():
     if request.method == "GET":
         return render_template("cpw.html")
@@ -190,7 +197,6 @@ def cpw():
         else:
             db.execute("UPDATE users SET password_hash = ? WHERE id = ? ",generate_password_hash(new_pw),session["user_id"])
             flash({"message": "Password Changed!", "color": "green"})
-            return redirect("/")
         
     return redirect("/")
 
