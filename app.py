@@ -33,14 +33,13 @@ def home():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-
     session.clear()
 
     if request.method == "POST":
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("uName"))
 
         if len(rows) != 1 or not check_password_hash(rows[0]["password_hash"], request.form.get("pass")):
-            flash({"message": "Username or password not match !", "color": "red"})
+            flash({"message": "Username or password does not match", "color": "red"})
         else:
             session["user_id"] = rows[0]["id"]
             if request.form.get("remember"):
@@ -48,11 +47,11 @@ def login():
                 app.permanent_session_lifetime = timedelta(days=30)  
             else:
                 session.permanent = False 
-            msg = "Welcome Dear, " + rows[0]["full_name"]
-            flash({"message": msg, "color": "green"})
-            return redirect("/")
-            
-        return redirect("login.html")     
+                msg = "Welcome " + rows[0]["full_name"]
+                flash({"message": msg, "color": "green"})
+                return redirect("/")
+        
+        return render_template("login.html")  
     else:
         return render_template("login.html")
 
@@ -93,7 +92,7 @@ def register():
                 generate_password_hash(request.form.get("pass"))
              )
             flash({"message": "Registered successfully!", "color": "green"})
-            return redirect("login.html")
+            return redirect("/login")
         return  render_template("signup.html")
     else:
         return render_template("signup.html")

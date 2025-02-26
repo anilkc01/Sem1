@@ -1,5 +1,8 @@
 from flask import redirect, render_template, request, session
 from functools import wraps
+import requests
+from bs4 import BeautifulSoup
+
 
 def login_required(f):
 
@@ -10,3 +13,4 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
