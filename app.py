@@ -29,7 +29,7 @@ def home():
 
         ltp_balance = sum(stock['quantity'] * stock['ltp'] for stock in holds)
         pcp = sum(stock['quantity'] * stock['p_close'] for stock in holds)
-        return render_template("index.html",loggedin= True, amt = amount,pcp_balance=pcp,ltp_balance=ltp_balance,holdings = holds)
+        return render_template("index.html",loggedin= True, amt = round(amount,2),pcp_balance=round(pcp,2),ltp_balance=round(ltp_balance,2),holdings = holds)
 
 @app.route("/login", methods=["GET","POST"])
 def login():
@@ -77,7 +77,7 @@ def register():
         elif not request.form.get("number"):
             flash({"message": "Number is blank!", "color": "red"})
         elif request.form.get("pass") != request.form.get("repass"):
-            flash({"message": "Passwords doesnot match ", "color": "red"})
+            flash({"message": "Passwords Mismatch ", "color": "red"})
         elif len(row) == 1:
             flash({"message": "Username Already exist", "color": "red"})
         else:
@@ -92,7 +92,7 @@ def register():
                 generate_password_hash(request.form.get("pass"))
              )
             flash({"message": "Registered successfully!", "color": "green"})
-            return redirect("/login")
+            return render_template("login.html")
         return  render_template("signup.html")
     else:
         return render_template("signup.html")
@@ -188,7 +188,7 @@ def cpw():
         new_pw = request.form.get("npw")
         re_pw = request.form.get("re-npw")
         if new_pw != re_pw:
-            flash({"message": "New Passwords doesnot match", "color": "red"})
+            flash({"message": "New Passwords  Mismatch", "color": "red"})
             
         elif len(details) != 1 or not check_password_hash(details[0]["password_hash"], old_pw):
             flash({"message": "Wrong old Password", "color": "red"})
