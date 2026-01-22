@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "617842133620",
+    "firebase_url": "https://bookhub-5ab1d-default-rtdb.firebaseio.com",
+    "project_id": "bookhub-5ab1d",
+    "storage_bucket": "bookhub-5ab1d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617842133620:android:73bae4202abda324705f21",
+        "android_client_info": {
+          "package_name": "com.example.projectsem3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Uv1pE3iOUYKFmnF_vQURhEqvQ8LpkFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617842133620:android:41bbb2f02958f4bc705f21",
+        "android_client_info": {
+          "package_name": "com.example.sem3project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Uv1pE3iOUYKFmnF_vQURhEqvQ8LpkFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
